@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rony Brown Blog</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on Rony Brown Blog</description>
+    <title>Posts on Rony Brown Blog</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Rony Brown Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 04 Jun 2024 20:39:20 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Page One</title>
-      <link>http://localhost:1313/docs/page-one/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/page-one/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Page Two</title>
-      <link>http://localhost:1313/docs/page-two/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/page-two/</guid>
-      <description></description>
-    </item>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Git Note</title>
       <link>http://localhost:1313/posts/git-note/</link>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="访问问题#连接不上#fatal: unable to access &lsquo;https://github.com/xxx/.git/&#39;: Failed to connect to github.com port 443 after 21090 ms: Couldn&rsquo;t connect to server
+开启VPN情况#一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。
+解决办法：
+1.查看本机系统端口号
+设置-&gt;网络和Internet-&gt;代理
+2.设置git端口号和上面的端口号保持一致
+git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 设置完成可以查看是否配置成功：
+&gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890 未开启VPN情况#还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
+git config --global --unset http.proxy git config --global --unset https.proxy ">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/git-note/">
+  <meta property="og:site_name" content="Rony Brown Blog">
+  <meta property="og:title" content="Git Note">
+  <meta property="og:description" content="访问问题#连接不上#fatal: unable to access ‘https://github.com/xxx/.git/&#39;: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
+开启VPN情况#一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。
+解决办法：
+1.查看本机系统端口号
+设置-&gt;网络和Internet-&gt;代理
+2.设置git端口号和上面的端口号保持一致
+git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 设置完成可以查看是否配置成功：
+&gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890 未开启VPN情况#还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
+git config --global --unset http.proxy git config --global --unset https.proxy ">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-04T20:39:20+08:00">
+    <meta property="article:modified_time" content="2024-06-04T20:39:20+08:00">
+<title>Git Note | Rony Brown Blog</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/posts/git-note/">
+<link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.ab9bb2f162717e434851106a68319390168c8a76c833c5a7604e8a70192c4b1f.js" integrity="sha256-q5uy8WJxfkNIURBqaDGTkBaMinbIM8WnYE6KcBksSx8=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+
+  
+    
+      
+    
+  
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><img src="/logo.png" alt="Logo" /><span>Rony Brown Blog</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li>
+  <a href="/docs/">Book Example</a>
+<ul>
+<li>
+  <a href="/docs/page-one/">Page One</a></li>
+<li>
+  <a href="/docs/page-two/">Page Two</a></li>
+</ul>
+</li>
+<li>
+  <a href="/posts/">Blog</a>
+<ul>
+<li>
+  <a href="/posts/git-note/"class=active>git note</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Git Note</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#连接不上">连接不上</a>
+      <ul>
+        <li><a href="#开启vpn情况">开启VPN情况</a></li>
+        <li><a href="#未开启vpn情况">未开启VPN情况</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    <a href="/posts/git-note/">Git Note</a>
+  </h1>
+  
+  <h5>Jun 4, 2024</h5>
+
+
+
+  
+
+  
+
+
+
+<h1 id="访问问题">
+  访问问题
+  <a class="anchor" href="#%e8%ae%bf%e9%97%ae%e9%97%ae%e9%a2%98">#</a>
+</h1>
+<h2 id="连接不上">
+  连接不上
+  <a class="anchor" href="#%e8%bf%9e%e6%8e%a5%e4%b8%8d%e4%b8%8a">#</a>
+</h2>
+<p>fatal: unable to access &lsquo;
+  <a href="https://github.com/xxx/.git/%27">https://github.com/xxx/.git/'</a>: Failed to connect to github.com port 443 after 21090 ms: Couldn&rsquo;t connect to server</p>
+<h3 id="开启vpn情况">
+  开启VPN情况
+  <a class="anchor" href="#%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5">#</a>
+</h3>
+<p>一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。</p>
+<p><strong>解决办法：</strong></p>
+<p>1.查看本机系统端口号</p>
+<p>设置-&gt;网络和Internet-&gt;代理</p>
+<p>
+  <img src="./git-note.assets/image-20240603100901242.png" alt="image-20240603100901242" /></p>
+<p>2.设置git端口号和上面的端口号保持一致</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global http.proxy 127.0.0.1:7890
+</span></span><span style="display:flex;"><span>git config --global https.proxy 127.0.0.1:7890
+</span></span></code></pre></div><p>设置完成可以查看是否配置成功：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git config --global -l
+</span></span><span style="display:flex;"><span>user.email<span style="color:#f92672">=</span>xxx@xx.com
+</span></span><span style="display:flex;"><span>user.name<span style="color:#f92672">=</span>xxx
+</span></span><span style="display:flex;"><span>http.proxy<span style="color:#f92672">=</span>127.0.0.1:7890
+</span></span><span style="display:flex;"><span>https.proxy<span style="color:#f92672">=</span>127.0.0.1:7890
+</span></span></code></pre></div><h3 id="未开启vpn情况">
+  未开启VPN情况
+  <a class="anchor" href="#%e6%9c%aa%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5">#</a>
+</h3>
+<p>还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global --unset http.proxy
+</span></span><span style="display:flex;"><span>git config --global --unset https.proxy
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/edit/master/exampleSite/content/posts/git-note.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "my-site" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#连接不上">连接不上</a>
+      <ul>
+        <li><a href="#开启vpn情况">开启VPN情况</a></li>
+        <li><a href="#未开启vpn情况">未开启VPN情况</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
