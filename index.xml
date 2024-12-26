@@ -6,7 +6,7 @@
     <description>Recent content on Rony Brown Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 26 Dec 2024 10:52:23 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Dec 2024 11:13:57 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Page One</title>
@@ -23,7 +23,7 @@
       <description></description>
     </item>
     <item>
-      <title>Rz Ad9361x No Os Pl Rw</title>
+      <title>AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发</title>
       <link>http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/</link>
       <pubDate>Thu, 26 Dec 2024 10:52:23 +0800</pubDate>
       <guid>http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/</guid>
