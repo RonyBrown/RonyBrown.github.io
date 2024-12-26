@@ -224,7 +224,7 @@ https://github.com/alex-shpak/hugo-book
 <p>针对现有驱动存在的问题，对ADI提供的驱动进行修改升级，通过PS端对AD9361进行初始化，PL端对ADC与DAC的IQ通路进行读写，经过多个版本迭代升级，本驱动能够稳定工作，测试多次烧录运行都能够正常工作，且在运行时也可以很简单的修改AD9361收发参数，满足大部分通信算法的设计要求，提高开发的效率，帮助开发者专注于基带算法的实现，而不是浪费过多时间在配置驱动上。</p>
 <p>本驱动仅添加最核心的AD9361的驱动代码，在不影响系统的稳定性与复杂度的情况下尽量保留了完整的数据接口与控制接口，在Block Design中添加核心的IP与配置代码，引出了关键的收发信号接口，在PS端完善了数据通路，使PL端能够单独的控制数据的收发。对于本驱动，<strong>完成移植过程非常简单，只需要修改</strong><code>DDR</code>、<code>引脚约束</code>这几个参数就能完成完整功能的移植。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225144918002.png" alt="image-20241225144918002" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225144918002.png" alt="image-20241225144918002" /></p>
 <h1 id="驱动移植">
   驱动移植
   <a class="anchor" href="#%e9%a9%b1%e5%8a%a8%e7%a7%bb%e6%a4%8d">#</a>
@@ -237,7 +237,7 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 <p>首先进入到Vivavo工程，打开Block Design，点击ZYNQ7 Processing System，进入到ZYNQ核设置框图，进入<code>DDR Configuration</code>，根据自己的板子选择对应的DDR型号，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225145244107.png" alt="image-20241225145244107" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225145244107.png" alt="image-20241225145244107" /></p>
 <p>驱动中需要使用到少部分IO，本设计仅保留AD9361正常工作时使用到的外设IO，本驱动需要使用到：</p>
 <ol>
 <li>SPI</li>
@@ -245,58 +245,58 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 <p>进入到<code>Peripheral I/O Pins</code>，勾选<code>SPI0</code>，调整对应的引脚（点亮对应引脚的框框），勾选<code>UART1</code>，调整对应的引脚。其他参数不做调整，如工程需要使用到其他外设，勾选并调整对应的外设引脚即可。如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225145319534.png" alt="image-20241225145319534" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225145319534.png" alt="image-20241225145319534" /></p>
 <p>设置好后点击下图标记处<code>Validate Design</code>按钮，</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225155723553.png" alt="image-20241225155723553" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225155723553.png" alt="image-20241225155723553" /></p>
 <p>点击运行后出现无错误无警告的提示框如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225155807932.png" alt="image-20241225155807932" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225155807932.png" alt="image-20241225155807932" /></p>
 <p>在工程文件下，如下图，右键<code>system</code>后点击<code>Generate Ouput Products</code>，确认运行。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225160151026.png" alt="image-20241225160151026" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160151026.png" alt="image-20241225160151026" /></p>
 <p>运行完成后，然后修改AD9361的对应的引脚约束，特别注意需要修改的是引脚编号与对应的引脚电平，不要同一个Bank使用不同的电平标准。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241223211610699.png" alt="image-20241223211610699" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223211610699.png" alt="image-20241223211610699" /></p>
 <p><strong>特别注意</strong>：在确认<code>DDR</code>、<code>SPI0</code>、<code>UART1</code>、<code>引脚约束</code>设置都无误的情况下，点击<code>Generate Bitstream</code>编译整个工程，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225160529882.png" alt="image-20241225160529882" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160529882.png" alt="image-20241225160529882" /></p>
 <p>编译后无报错的情况下，如下图，需要导出硬件描述语言到<code>Vitis</code>里面。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241223210719938.png" alt="image-20241223210719938" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223210719938.png" alt="image-20241223210719938" /></p>
 <p>点击Vivado菜单栏处的<code>File-Export-Export Hardware</code>，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225160925418.png" alt="image-20241225160925418" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160925418.png" alt="image-20241225160925418" /></p>
 <p>导出后，在<code>Vivado</code>工程目录下面会生成<code>xxx.xsa</code>文件，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225161203962.png" alt="image-20241225161203962" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161203962.png" alt="image-20241225161203962" /></p>
 <p>将其复制到上级目录<code>Vitis</code>里面，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225161248201.png" alt="image-20241225161248201" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161248201.png" alt="image-20241225161248201" /></p>
 <p>打开<code>Vitis</code>，Workspace选择上图<code>Vitis</code>工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的<code>xxx.xsa</code>创建的Platform即可。右键<code>ad936x [Platform]</code>，点击<code>Delete</code>，删除之后，点击Vitis菜单栏中的<code>File-New-Platform Project</code>，<code>Platform project name</code>填写：ad936x，点击next进入下一步，如下图。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225162522724.png" alt="image-20241225162522724" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225162522724.png" alt="image-20241225162522724" /></p>
 <p>浏览选择Vitis工程目录下的<code>xxx.xsa</code>文件，完成Platform创建，</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225162645611.png" alt="image-20241225162645611" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225162645611.png" alt="image-20241225162645611" /></p>
 <p>点击<code>...</code>按钮，</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225162917912.png" alt="image-20241225162917912" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225162917912.png" alt="image-20241225162917912" /></p>
 <p>选中刚刚创建的Platform，点击ok，选择yes，</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225163036811.png" alt="image-20241225163036811" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163036811.png" alt="image-20241225163036811" /></p>
 <p>这个时候刚刚的<code>Platfom</code>的红色叉叉也消失了。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225163136887.png" alt="image-20241225163136887" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163136887.png" alt="image-20241225163136887" /></p>
 <p>首先右键<code>ad936x [Platform]</code>，点击build，编译后无报错，右键<code>ad936x_app</code>，点击build。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225163640324.png" alt="image-20241225163640324" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163640324.png" alt="image-20241225163640324" /></p>
 <p>编译无报错如下图，</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
 <p>至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
 <p>本驱动提供一个测试案例来观测程序是否正常工作，AD9361是否正常收发数据。在PL产生一个正弦波与余弦波，将正弦波送入AD9361通道0的<code>I</code>路，余弦波送入AD9361通到0的<code>Q</code>路，通过连接到通道0的DAC的<code>I</code>路与<code>Q</code>路信号就可以将信号发射出去。将通道0的ADC的<code>I</code>路与<code>Q</code>路信号、通道0的DAC的的<code>I</code>路与<code>Q</code>路信号连接到<code>ILA</code>逻辑调试器上，下载完成之后，观测抓取到的波形，基带收发部分RTL代码如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#f92672">module</span> tx_rx (
 </span></span><span style="display:flex;"><span>    i_clk,
@@ -343,7 +343,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>endmodule
 </span></span></code></pre></div><p>点击<code>open Hardware Manager</code>连接芯片之后（如果连接失败检查一下是否工作在JTAG模式），点击运行触发按键，波形被抓取到并显示在波形框中，其中<code>i_adc_data_i0</code>与<code>i_adc_data_q0</code>为ADC采集到的射频信号，<code>o_dac_data_i0</code>与<code>o_dac_data_q0</code>为DAC发射的正弦波基带信号，如果ADC采集到的信号为标准的正弦波则芯片工作正常。</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241223203410132.png" alt="image-20241223203410132" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223203410132.png" alt="image-20241223203410132" /></p>
 <p>如果连接芯片后没有出现<code>ILA</code>视图，则在Vivado重新烧录文件，烧录时添加上<code>xxx.ltx</code>文件，烧录后就可以显示出正常波形。</p>
 <h1 id="iq收发操作流程">
   IQ收发操作流程
@@ -351,7 +351,7 @@ https://github.com/alex-shpak/hugo-book
 </h1>
 <p>对于大部分基带算法的时候，只需要关注DAC数据接口与ADC数据接口，本驱动暴露出了所有的DAC与ADC数据接口，包括两路ADC的<code>I</code>路与<code>Q</code>路信号，两路DAC的<code>I</code>路与<code>Q</code>路信号，以及ADC的有效信号，用户只需在随AD9361输出的数据时钟读写就可以完成信号的收发，AD9361接口图如下图：</p>
 <p>
-  <img src="/pics/RZ_AD9361_NoOs_PL_rw/image-20241225144953794.png" alt="image-20241225144953794" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225144953794.png" alt="image-20241225144953794" /></p>
 <p>收发示例代码如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#f92672">module</span> tx_rx (
 </span></span><span style="display:flex;"><span>    i_clk,
