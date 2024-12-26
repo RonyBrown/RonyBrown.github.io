@@ -17,7 +17,7 @@
 <link rel="canonical" href="http://localhost:1313/posts/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.a6d88b4d71fff914f5123a2ec71515494a138f980572c7d3b294ed49fbf5528d.js" integrity="sha256-ptiLTXH/&#43;RT1EjouxxUVSUoTj5gFcsfTspTtSfv1Uo0=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.754b43b0a5628ae5d1c00965009191d145f802e0ac23c8714527914ae255f18d.js" integrity="sha256-dUtDsKViiuXRwAllAJGR0UX4AuCsI8hxRSeRSuJV8Y0=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -182,26 +182,29 @@ https://github.com/alex-shpak/hugo-book
 方案1：通过PS端初始化并控制数据的收发； 方案2：通过纯PL逻辑初始化并控制数据的收发。 但是方案1的现有资料都是通过PS端通过C语言编程来实现基带信号的收发，而对于大部分基带算法对时间刻度要求严格，仅通过C语言实现基带的收发难以满足很多实际需求，方案2将初始化与基带信号数据收发都集中在纯逻辑端，这样极大的方便了基带信号的发射与接收，但是AD9361初始化流程复杂且繁琐，且需要进行一定的校验才能稳定工作，也会占用过多的逻辑资源，目前测试过多个纯PL控制AD9361，大部分工作稳定性较差，且需要修改配置参数时比较麻烦。
 针对现有驱动存在的问题，对ADI提供的驱动进行修改升级，通过PS端对AD9361进行初始化，PL端对ADC与DAC的IQ通路进行读写，经过多个版本迭代升级，本驱动能够稳定工作，测试多次烧录运行都能够正常工作，且在运行时也可以很简单的修改AD9361收发参数，满足大部分通信算法的设计要求，提高开发的效率，帮助开发者专注于基带算法的实现，而不是浪费过多时间在配置驱动上。
 本驱动仅添加最核心的AD9361的驱动代码，在不影响系统的稳定性与复杂度的情况下尽量保留了完整的数据接口与控制接口，在Block Design中添加核心的IP与配置代码，引出了关键的收发信号接口，在PS端完善了数据通路，使PL端能够单独的控制数据的收发。对于本驱动，完成移植过程非常简单，只需要修改DDR、引脚约束这几个参数就能完成完整功能的移植。
-![image-20241225144918002](RZ_AD9361 Noos PL端收发数据.assets/image-20241225144918002.png)
 驱动移植#对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，只需要进行简单的修改，驱动移植的大致流程分为：
 修改Block Design的ZYNQ7 Processing System IP中的DDR与少量IO 修改连接AD9361的引脚约束 修改Vitis中的platform 首先进入到Vivavo工程，打开Block Design，点击ZYNQ7 Processing System，进入到ZYNQ核设置框图，进入DDR Configuration，根据自己的板子选择对应的DDR型号，如下图。
-![image-20241225145244107](RZ_AD9361 Noos PL端收发数据.assets/image-20241225145244107.png)
 驱动中需要使用到少部分IO，本设计仅保留AD9361正常工作时使用到的外设IO，本驱动需要使用到：
 SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点亮对应引脚的框框），勾选UART1，调整对应的引脚。其他参数不做调整，如工程需要使用到其他外设，勾选并调整对应的外设引脚即可。如下图。
-![image-20241225145319534](RZ_AD9361 Noos PL端收发数据.assets/image-20241225145319534.png)
 设置好后点击下图标记处Validate Design按钮，
-![image-20241225155723553](RZ_AD9361 Noos PL端收发数据.assets/image-20241225155723553.png)
 点击运行后出现无错误无警告的提示框如下图。
-![image-20241225155807932](RZ_AD9361 Noos PL端收发数据.assets/image-20241225155807932.png)
 在工程文件下，如下图，右键system后点击Generate Ouput Products，确认运行。
-![image-20241225160151026](RZ_AD9361 Noos PL端收发数据.assets/image-20241225160151026.png)
 运行完成后，然后修改AD9361的对应的引脚约束，特别注意需要修改的是引脚编号与对应的引脚电平，不要同一个Bank使用不同的电平标准。
-![image-20241223211610699](RZ_AD9361 Noos PL端收发数据.assets/image-20241223211610699.png)
 特别注意：在确认DDR、SPI0、UART1、引脚约束设置都无误的情况下，点击Generate Bitstream编译整个工程，如下图。
-![image-20241225160529882](RZ_AD9361 Noos PL端收发数据.assets/image-20241225160529882.png)
 编译后无报错的情况下，如下图，需要导出硬件描述语言到Vitis里面。
-![image-20241223210719938](RZ_AD9361 Noos PL端收发数据.assets/image-20241223210719938.png)
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
+导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
+将其复制到上级目录Vitis里面，如下图。
+打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
+浏览选择Vitis工程目录下的xxx.xsa文件，完成Platform创建，
+点击...按钮，
+选中刚刚创建的Platform，点击ok，选择yes，
+这个时候刚刚的Platfom的红色叉叉也消失了。
+首先右键ad936x [Platform]，点击build，编译后无报错，右键ad936x_app，点击build。
+编译无报错如下图，
+至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改PL比特文件路径，点击绿色的Run按钮右边的倒三角，点击Run Configurations，按照下图的顺序进入到Bitstream路径选择，Bitstream为PL端的烧录比特文件，路径位于Vivado工程目录下的ad936x.runs/impl_1/system_top.bit，选中之后点击apply，Run之后等待下载完成就可以代码的烧录。
+本驱动提供一个测试案例来观测程序是否正常工作，AD9361是否正常收发数据。在PL产生一个正弦波与余弦波，将正弦波送入AD9361通道0的I路，余弦波送入AD9361通到0的Q路，通过连接到通道0的DAC的I路与Q路信号就可以将信号发射出去。将通道0的ADC的I路与Q路信号、通道0的DAC的的I路与Q路信号连接到ILA逻辑调试器上，下载完成之后，观测抓取到的波形，基带收发部分RTL代码如下：
+module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_dac_data_q0 ); input i_clk; input i_rst_n; input [11:0] i_adc_data_i0; input [11:0] i_adc_data_q0; output [11:0] o_dac_data_i0; output [11:0] o_dac_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_q0; wire clk; wire rst_n; assign clk = i_clk; assign rst_n = i_rst_n; // 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果 // 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果 // 产生正弦波测试 sine_wave u_sine_wave ( .
         <a href="/posts/RZ_AD9361_No-Os_pl_rw/">...</a>
       
     </p>
