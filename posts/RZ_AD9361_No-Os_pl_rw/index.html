@@ -34,7 +34,7 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/">
   <meta property="og:site_name" content="Rony Brown Blog">
-  <meta property="og:title" content="AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发">
+  <meta property="og:title" content="AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361">
   <meta property="og:description" content="驱动介绍#AD9361通常搭配ZYNQ系列芯片使用，本驱动也是针对ZYNQ芯片对AD9361系列（包含AD9363、AD9364，后文统称AD9361）初始化以及基带数据收发。对于目前网上AD9361的驱动的资料，主要有两种方案：
 方案1：通过PS端初始化并控制数据的收发； 方案2：通过纯PL逻辑初始化并控制数据的收发。 但是方案1的现有资料都是通过PS端通过C语言编程来实现基带信号的收发，而对于大部分基带算法对时间刻度要求严格，仅通过C语言实现基带的收发难以满足很多实际需求，方案2将初始化与基带信号数据收发都集中在纯逻辑端，这样极大的方便了基带信号的发射与接收，但是AD9361初始化流程复杂且繁琐，且需要进行一定的校验才能稳定工作，也会占用过多的逻辑资源，目前测试过多个纯PL控制AD9361，大部分工作稳定性较差，且需要修改配置参数时比较麻烦。
 针对现有驱动存在的问题，对ADI提供的驱动进行修改升级，通过PS端对AD9361进行初始化，PL端对ADC与DAC的IQ通路进行读写，经过多个版本迭代升级，本驱动能够稳定工作，测试多次烧录运行都能够正常工作，且在运行时也可以很简单的修改AD9361收发参数，满足大部分通信算法的设计要求，提高开发的效率，帮助开发者专注于基带算法的实现，而不是浪费过多时间在配置驱动上。
@@ -67,13 +67,13 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-26T10:52:23+08:00">
     <meta property="article:modified_time" content="2024-12-26T11:13:57+08:00">
-<title>AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发 | Rony Brown Blog</title>
+<title>AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361 | Rony Brown Blog</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.754b43b0a5628ae5d1c00965009191d145f802e0ac23c8714527914ae255f18d.js" integrity="sha256-dUtDsKViiuXRwAllAJGR0UX4AuCsI8hxRSeRSuJV8Y0=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.99dd46b0d921c0079d7ba2b57bb923dafbe44b904ba8546e6a0fc79b1122a121.js" integrity="sha256-md1GsNkhwAede6K1e7kj2vvkS5BLqFRuag/HmxEioSE=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -138,6 +138,8 @@ https://github.com/alex-shpak/hugo-book
   <a href="/posts/git-note/">git note</a></li>
 <li>
   <a href="/posts/RZ_AD9361_No-Os_pl_rw/"class=active>AD9361 PL读写数据，PS初始化</a></li>
+<li>
+  <a href="/posts/git-page-note/">Hugo GitHub 配置</a></li>
 </ul>
 </li>
 </ul>
@@ -171,7 +173,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发</strong>
+  <strong>AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</strong>
 
   <label for="toc-control">
     
@@ -185,7 +187,14 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#驱动介绍">驱动介绍</a></li>
+    <li><a href="#驱动移植">驱动移植</a></li>
+    <li><a href="#iq收发操作流程">IQ收发操作流程</a></li>
+    <li><a href="#资源获取">资源获取</a></li>
+  </ul>
+</nav>
 
 
 
@@ -198,7 +207,7 @@ https://github.com/alex-shpak/hugo-book
       
 <article class="markdown book-post">
   <h1>
-    <a href="/posts/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发</a>
+    <a href="/posts/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
   </h1>
   
   <h5>Dec 26, 2024</h5>
@@ -250,8 +259,9 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225155723553.png" alt="image-20241225155723553" /></p>
 <p>点击运行后出现无错误无警告的提示框如下图。</p>
-<p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225155807932.png" alt="image-20241225155807932" /></p>
+<div style="text-align: center;">
+    <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225155807932.png" alt="image-20241225155807932" style="width: 50%;">
+</div>
 <p>在工程文件下，如下图，右键<code>system</code>后点击<code>Generate Ouput Products</code>，确认运行。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160151026.png" alt="image-20241225160151026" /></p>
@@ -259,14 +269,16 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223211610699.png" alt="image-20241223211610699" /></p>
 <p><strong>特别注意</strong>：在确认<code>DDR</code>、<code>SPI0</code>、<code>UART1</code>、<code>引脚约束</code>设置都无误的情况下，点击<code>Generate Bitstream</code>编译整个工程，如下图。</p>
-<p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160529882.png" alt="image-20241225160529882" /></p>
+<div style="text-align: center;">
+    <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160529882.png" style="width: 30%; text-align: center;">
+</div>
 <p>编译后无报错的情况下，如下图，需要导出硬件描述语言到<code>Vitis</code>里面。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223210719938.png" alt="image-20241223210719938" /></p>
 <p>点击Vivado菜单栏处的<code>File-Export-Export Hardware</code>，如下图。</p>
-<p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160925418.png" alt="image-20241225160925418" /></p>
+<div style="text-align: center">
+    <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160925418.png">
+</div>
 <p>导出后，在<code>Vivado</code>工程目录下面会生成<code>xxx.xsa</code>文件，如下图。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161203962.png" alt="image-20241225161203962" /></p>
@@ -289,11 +301,12 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163136887.png" alt="image-20241225163136887" /></p>
 <p>首先右键<code>ad936x [Platform]</code>，点击build，编译后无报错，右键<code>ad936x_app</code>，点击build。</p>
-<p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163640324.png" alt="image-20241225163640324" /></p>
+<div style="text-align: center">
+    <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163640324.png" style="width: 50%;">
+</div>
 <p>编译无报错如下图，</p>
 <p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png#pic_center=50%25x50%25" alt="image-20241225163815952" /></p>
 <p>至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
@@ -409,6 +422,11 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></div><p>其中AD9361输出时钟频率与PS的配置有关，默认状态下在1r1t的时钟频率为30.72MHz，在2r2t的时钟频率为61.44MHz。</p>
 <p>针对PS端对AD9361的配置，可以参考ADI No-Os官方的操作文档，链接为：
   <a href="https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms2-ebz/software/baremetal">AD9361 No-OS Software</a></p>
+<h1 id="资源获取">
+  资源获取
+  <a class="anchor" href="#%e8%b5%84%e6%ba%90%e8%8e%b7%e5%8f%96">#</a>
+</h1>
+<p>知识付费，有需求请联系vx：RonyzBrown</p>
 </article>
  
       
@@ -480,7 +498,14 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#驱动介绍">驱动介绍</a></li>
+    <li><a href="#驱动移植">驱动移植</a></li>
+    <li><a href="#iq收发操作流程">IQ收发操作流程</a></li>
+    <li><a href="#资源获取">资源获取</a></li>
+  </ul>
+</nav>
 
 
  

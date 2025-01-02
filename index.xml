@@ -6,7 +6,7 @@
     <description>Recent content on Rony Brown Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 26 Dec 2024 11:13:57 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Dec 2024 15:09:41 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Page One</title>
@@ -23,7 +23,14 @@
       <description></description>
     </item>
     <item>
-      <title>AD9361驱动：ZYNQ7020 PS端初始化AD9361，PL端纯逻辑控制信号收发</title>
+      <title>Git Page Note</title>
+      <link>http://localhost:1313/posts/git-page-note/</link>
+      <pubDate>Thu, 26 Dec 2024 15:09:41 +0800</pubDate>
+      <guid>http://localhost:1313/posts/git-page-note/</guid>
+      <description>Hugo构建GitHub Pages&#xD;#&#xD;Hugo + GitHub Pages 搭建个人博客&#xD;#&#xD;创建 Hugo 网站&#xD;#&#xD;通过上述命令安装 hugo 程序后，就可以通过 hugo new site 命令进行网站创建、配置与本地调试了。&#xA;hugo new site ronyz-site 注：后续命令未经说明，均在cmd中的ronyz-site根目录下运行&#xA;创建完成后，根目录 ronyz-site 包含以下文件&#xA;.&#xD;├── archetypes: default.md是生成博文的模版&#xD;├── assets # 存放被 Hugo Pipes 处理的文件&#xD;├── content # 存放markdown文件作为博文内容&#xD;├── data # 存放 Hugo 处理的数据&#xD;├── layouts # 存放布局文件&#xD;├── static # 存放静态文件 图片 CSS JS文件&#xD;├── themes: 存放不同的主题&#xD;└── config.toml: 博客配置文件支持 JSON YAML TOML 三种格式配置文件 配置主题&#xD;#&#xD;当通过上文命令创建我们的站点后，需要进行主题配置，Hugo 社区有了很丰富的主题，可以通过官网 Themes 菜单选择自己喜欢的风格，查看预览效果，选择后可以进入主题项目仓库，一般都会有很详细的安装及配置说明。</description>
+    </item>
+    <item>
+      <title>AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</title>
       <link>http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/</link>
       <pubDate>Thu, 26 Dec 2024 10:52:23 +0800</pubDate>
       <guid>http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/</guid>
