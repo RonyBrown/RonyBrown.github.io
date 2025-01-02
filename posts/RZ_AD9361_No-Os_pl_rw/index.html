@@ -73,7 +73,7 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 <link rel="canonical" href="http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.99dd46b0d921c0079d7ba2b57bb923dafbe44b904ba8546e6a0fc79b1122a121.js" integrity="sha256-md1GsNkhwAede6K1e7kj2vvkS5BLqFRuag/HmxEioSE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.772cc4cad79414a81b0d8b7edc05ac0e0c801a2a44749b911c8facace537df9a.js" integrity="sha256-dyzEyteUFKgbDYt&#43;3AWsDgyAGipEdJuRHI&#43;srOU335o=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -98,7 +98,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><img src="/logo.png" alt="Logo" /><span>Rony Brown Blog</span>
+  <a class="flex align-center" href="/"><img src="/logo/ronybrown-logo.png" alt="Logo" /><span>Rony Brown Blog</span>
   </a>
 </h2>
 
@@ -311,49 +311,49 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
 <p>本驱动提供一个测试案例来观测程序是否正常工作，AD9361是否正常收发数据。在PL产生一个正弦波与余弦波，将正弦波送入AD9361通道0的<code>I</code>路，余弦波送入AD9361通到0的<code>Q</code>路，通过连接到通道0的DAC的<code>I</code>路与<code>Q</code>路信号就可以将信号发射出去。将通道0的ADC的<code>I</code>路与<code>Q</code>路信号、通道0的DAC的的<code>I</code>路与<code>Q</code>路信号连接到<code>ILA</code>逻辑调试器上，下载完成之后，观测抓取到的波形，基带收发部分RTL代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#f92672">module</span> tx_rx (
-</span></span><span style="display:flex;"><span>    i_clk,
-</span></span><span style="display:flex;"><span>    i_rst_n,
-</span></span><span style="display:flex;"><span>    i_adc_data_i0,
-</span></span><span style="display:flex;"><span>    i_adc_data_q0,
-</span></span><span style="display:flex;"><span>    o_dac_data_i0,
-</span></span><span style="display:flex;"><span>    o_dac_data_q0
+<div class="highlight"><pre tabindex="0" style="color:#2f1e2e;background-color:#e7e9db;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#5bc4bf">module</span> <span style="color:#ef6155">tx_rx</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_clk</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_rst_n</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_adc_data_i0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_adc_data_q0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">o_dac_data_i0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">o_dac_data_q0</span>
 </span></span><span style="display:flex;"><span>);
-</span></span><span style="display:flex;"><span>    input         i_clk;
-</span></span><span style="display:flex;"><span>    input         i_rst_n;
-</span></span><span style="display:flex;"><span>    input  [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_i0;
-</span></span><span style="display:flex;"><span>    input  [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_q0;
-</span></span><span style="display:flex;"><span>    output [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_i0;
-</span></span><span style="display:flex;"><span>    output [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_q0;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>         <span style="color:#ef6155">i_clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>         <span style="color:#ef6155">i_rst_n</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>  [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_i0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>  [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_q0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">output</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_i0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">output</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_q0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_i0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_q0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_i0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_q0;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_i0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_q0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_i0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_q0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    wire       clk;
-</span></span><span style="display:flex;"><span>    wire       rst_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span>       <span style="color:#ef6155">clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span>       <span style="color:#ef6155">rst_n</span>;
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    assign clk   <span style="color:#f92672">=</span> i_clk;
-</span></span><span style="display:flex;"><span>    assign rst_n <span style="color:#f92672">=</span> i_rst_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">clk</span>   <span style="color:#5bc4bf">=</span> <span style="color:#ef6155">i_clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">rst_n</span> <span style="color:#5bc4bf">=</span> <span style="color:#ef6155">i_rst_n</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 产生正弦波测试
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    sine_wave u_sine_wave (
-</span></span><span style="display:flex;"><span>        .clk      (clk),
-</span></span><span style="display:flex;"><span>        .dout_sin (o_dac_data_i0[<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">4</span>]),
-</span></span><span style="display:flex;"><span>        .dout_cos (o_dac_data_q0[<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#8d8687">// 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#8d8687">// 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#8d8687">// 产生正弦波测试
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#ef6155">sine_wave</span> <span style="color:#ef6155">u_sine_wave</span> (
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">clk</span>      (<span style="color:#ef6155">clk</span>),
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">dout_sin</span> (<span style="color:#ef6155">o_dac_data_i0</span>[<span style="color:#f99b15">11</span>:<span style="color:#f99b15">4</span>]),
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">dout_cos</span> (<span style="color:#ef6155">o_dac_data_q0</span>[<span style="color:#f99b15">11</span>:<span style="color:#f99b15">4</span>])
 </span></span><span style="display:flex;"><span>    );
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    assign o_dac_data_i0[<span style="color:#ae81ff">3</span>:<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#e6db74">&#39;b0;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    assign o_dac_data_q0[3:0] = 4&#39;</span>b0;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">o_dac_data_i0</span>[<span style="color:#f99b15">3</span>:<span style="color:#f99b15">0</span>] <span style="color:#5bc4bf">=</span> <span style="color:#f99b15">4</span><span style="color:#48b685">&#39;b0;
+</span></span></span><span style="display:flex;"><span><span style="color:#48b685">    assign o_dac_data_q0[3:0] = 4&#39;</span><span style="color:#ef6155">b0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>endmodule
+</span></span><span style="display:flex;"><span><span style="color:#ef6155">endmodule</span>
 </span></span></code></pre></div><p>点击<code>open Hardware Manager</code>连接芯片之后（如果连接失败检查一下是否工作在JTAG模式），点击运行触发按键，波形被抓取到并显示在波形框中，其中<code>i_adc_data_i0</code>与<code>i_adc_data_q0</code>为ADC采集到的射频信号，<code>o_dac_data_i0</code>与<code>o_dac_data_q0</code>为DAC发射的正弦波基带信号，如果ADC采集到的信号为标准的正弦波则芯片工作正常。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223203410132.png" alt="image-20241223203410132" /></p>
@@ -366,59 +366,59 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225144953794.png" alt="image-20241225144953794" /></p>
 <p>收发示例代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#f92672">module</span> tx_rx (
-</span></span><span style="display:flex;"><span>    i_clk,
-</span></span><span style="display:flex;"><span>    i_rst_n,
-</span></span><span style="display:flex;"><span>    i_adc_data_i0,
-</span></span><span style="display:flex;"><span>    i_adc_data_q0,
-</span></span><span style="display:flex;"><span>    o_dac_data_i0,
-</span></span><span style="display:flex;"><span>    o_dac_data_q0
+<div class="highlight"><pre tabindex="0" style="color:#2f1e2e;background-color:#e7e9db;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-v" data-lang="v"><span style="display:flex;"><span><span style="color:#5bc4bf">module</span> <span style="color:#ef6155">tx_rx</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_clk</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_rst_n</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_adc_data_i0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">i_adc_data_q0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">o_dac_data_i0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">o_dac_data_q0</span>
 </span></span><span style="display:flex;"><span>);
-</span></span><span style="display:flex;"><span>    input         i_clk;
-</span></span><span style="display:flex;"><span>    input         i_rst_n;
-</span></span><span style="display:flex;"><span>    input  [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_i0;
-</span></span><span style="display:flex;"><span>    input  [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_q0;
-</span></span><span style="display:flex;"><span>    output [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_i0;
-</span></span><span style="display:flex;"><span>    output [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_q0;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>         <span style="color:#ef6155">i_clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>         <span style="color:#ef6155">i_rst_n</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>  [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_i0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">input</span>  [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_q0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">output</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_i0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">output</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_q0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_i0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] i_adc_data_q0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_i0;
-</span></span><span style="display:flex;"><span>    (<span style="color:#f92672">*</span>mark_debug <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">*</span>)
-</span></span><span style="display:flex;"><span>    wire [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] o_dac_data_q0;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_i0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">i_adc_data_q0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_i0</span>;
+</span></span><span style="display:flex;"><span>    (<span style="color:#5bc4bf">*</span><span style="color:#ef6155">mark_debug</span> <span style="color:#5bc4bf">=</span> <span style="color:#48b685">&#34;true&#34;</span><span style="color:#5bc4bf">*</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">o_dac_data_q0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    wire       clk;
-</span></span><span style="display:flex;"><span>    wire       rst_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span>       <span style="color:#ef6155">clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">wire</span>       <span style="color:#ef6155">rst_n</span>;
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    assign clk   <span style="color:#f92672">=</span> i_clk;
-</span></span><span style="display:flex;"><span>    assign rst_n <span style="color:#f92672">=</span> i_rst_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">clk</span>   <span style="color:#5bc4bf">=</span> <span style="color:#ef6155">i_clk</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">rst_n</span> <span style="color:#5bc4bf">=</span> <span style="color:#ef6155">i_rst_n</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// DAC发射测试
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 产生正弦波测试
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    sine_wave u_sine_wave (
-</span></span><span style="display:flex;"><span>        .clk      (clk),
-</span></span><span style="display:flex;"><span>        .dout_sin (o_dac_data_i0[<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">4</span>]),
-</span></span><span style="display:flex;"><span>        .dout_cos (o_dac_data_q0[<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>	<span style="color:#8d8687">// DAC发射测试
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#8d8687">// 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#8d8687">// 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#8d8687">// 产生正弦波测试
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#ef6155">sine_wave</span> <span style="color:#ef6155">u_sine_wave</span> (
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">clk</span>      (<span style="color:#ef6155">clk</span>),
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">dout_sin</span> (<span style="color:#ef6155">o_dac_data_i0</span>[<span style="color:#f99b15">11</span>:<span style="color:#f99b15">4</span>]),
+</span></span><span style="display:flex;"><span>        .<span style="color:#ef6155">dout_cos</span> (<span style="color:#ef6155">o_dac_data_q0</span>[<span style="color:#f99b15">11</span>:<span style="color:#f99b15">4</span>])
 </span></span><span style="display:flex;"><span>    );
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>    reg [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] adc_data_i;
-</span></span><span style="display:flex;"><span>    reg [<span style="color:#a6e22e">11</span>:<span style="color:#e6db74">0</span>] adc_data_q;
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ADC接收测试
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// 直接读取ADC数据接口的值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    always <span style="color:#f92672">@</span>(posedge clk) begin
-</span></span><span style="display:flex;"><span>		adc_data_i <span style="color:#f92672">&lt;=</span> i_adc_data_i0;
-</span></span><span style="display:flex;"><span>		adc_data_q <span style="color:#f92672">&lt;=</span> i_adc_data_q0;
-</span></span><span style="display:flex;"><span>    end
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">reg</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">adc_data_i</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">reg</span> [<span style="color:#06b6ef">11</span>:<span style="color:#48b685">0</span>] <span style="color:#ef6155">adc_data_q</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#8d8687">// ADC接收测试
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>	<span style="color:#8d8687">// 直接读取ADC数据接口的值
+</span></span></span><span style="display:flex;"><span><span style="color:#8d8687"></span>    <span style="color:#ef6155">always</span> <span style="color:#5bc4bf">@</span>(<span style="color:#ef6155">posedge</span> <span style="color:#ef6155">clk</span>) <span style="color:#ef6155">begin</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#ef6155">adc_data_i</span> <span style="color:#5bc4bf">&lt;=</span> <span style="color:#ef6155">i_adc_data_i0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#ef6155">adc_data_q</span> <span style="color:#5bc4bf">&lt;=</span> <span style="color:#ef6155">i_adc_data_q0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">end</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    assign o_dac_data_i0[<span style="color:#ae81ff">3</span>:<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#e6db74">&#39;b0;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    assign o_dac_data_q0[3:0] = 4&#39;</span>b0;
+</span></span><span style="display:flex;"><span>    <span style="color:#ef6155">assign</span> <span style="color:#ef6155">o_dac_data_i0</span>[<span style="color:#f99b15">3</span>:<span style="color:#f99b15">0</span>] <span style="color:#5bc4bf">=</span> <span style="color:#f99b15">4</span><span style="color:#48b685">&#39;b0;
+</span></span></span><span style="display:flex;"><span><span style="color:#48b685">    assign o_dac_data_q0[3:0] = 4&#39;</span><span style="color:#ef6155">b0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>endmodule
+</span></span><span style="display:flex;"><span><span style="color:#ef6155">endmodule</span>
 </span></span></code></pre></div><p>其中AD9361输出时钟频率与PS的配置有关，默认状态下在1r1t的时钟频率为30.72MHz，在2r2t的时钟频率为61.44MHz。</p>
 <p>针对PS端对AD9361的配置，可以参考ADI No-Os官方的操作文档，链接为：
   <a href="https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms2-ebz/software/baremetal">AD9361 No-OS Software</a></p>

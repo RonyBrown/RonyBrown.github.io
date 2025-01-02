@@ -37,7 +37,7 @@ git config --global --unset http.proxy git config --global --unset https.proxy "
 <link rel="canonical" href="http://localhost:1313/posts/git-note/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.99dd46b0d921c0079d7ba2b57bb923dafbe44b904ba8546e6a0fc79b1122a121.js" integrity="sha256-md1GsNkhwAede6K1e7kj2vvkS5BLqFRuag/HmxEioSE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.772cc4cad79414a81b0d8b7edc05ac0e0c801a2a44749b911c8facace537df9a.js" integrity="sha256-dyzEyteUFKgbDYt&#43;3AWsDgyAGipEdJuRHI&#43;srOU335o=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -62,7 +62,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><img src="/logo.png" alt="Logo" /><span>Rony Brown Blog</span>
+  <a class="flex align-center" href="/"><img src="/logo/ronybrown-logo.png" alt="Logo" /><span>Rony Brown Blog</span>
   </a>
 </h2>
 
@@ -211,20 +211,20 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/git-note/image-20240603100901242.png" alt="image-20240603100901242" /></p>
 <p>2.设置git端口号和上面的端口号保持一致</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global http.proxy 127.0.0.1:7890
+<div class="highlight"><pre tabindex="0" style="color:#2f1e2e;background-color:#e7e9db;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global http.proxy 127.0.0.1:7890
 </span></span><span style="display:flex;"><span>git config --global https.proxy 127.0.0.1:7890
 </span></span></code></pre></div><p>设置完成可以查看是否配置成功：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git config --global -l
-</span></span><span style="display:flex;"><span>user.email<span style="color:#f92672">=</span>xxx@xx.com
-</span></span><span style="display:flex;"><span>user.name<span style="color:#f92672">=</span>xxx
-</span></span><span style="display:flex;"><span>http.proxy<span style="color:#f92672">=</span>127.0.0.1:7890
-</span></span><span style="display:flex;"><span>https.proxy<span style="color:#f92672">=</span>127.0.0.1:7890
+<div class="highlight"><pre tabindex="0" style="color:#2f1e2e;background-color:#e7e9db;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git config --global -l
+</span></span><span style="display:flex;"><span>user.email<span style="color:#5bc4bf">=</span>xxx@xx.com
+</span></span><span style="display:flex;"><span>user.name<span style="color:#5bc4bf">=</span>xxx
+</span></span><span style="display:flex;"><span>http.proxy<span style="color:#5bc4bf">=</span>127.0.0.1:7890
+</span></span><span style="display:flex;"><span>https.proxy<span style="color:#5bc4bf">=</span>127.0.0.1:7890
 </span></span></code></pre></div><h3 id="未开启vpn情况">
   未开启VPN情况
   <a class="anchor" href="#%e6%9c%aa%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5">#</a>
 </h3>
 <p>还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global --unset http.proxy
+<div class="highlight"><pre tabindex="0" style="color:#2f1e2e;background-color:#e7e9db;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global --unset http.proxy
 </span></span><span style="display:flex;"><span>git config --global --unset https.proxy
 </span></span></code></pre></div></article>
  
