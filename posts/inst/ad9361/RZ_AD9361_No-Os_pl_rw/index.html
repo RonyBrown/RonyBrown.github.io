@@ -32,7 +32,7 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_dac_data_q0 ); input i_clk; input i_rst_n; input [11:0] i_adc_data_i0; input [11:0] i_adc_data_q0; output [11:0] o_dac_data_i0; output [11:0] o_dac_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_q0; wire clk; wire rst_n; assign clk = i_clk; assign rst_n = i_rst_n; // 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果 // 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果 // 产生正弦波测试 sine_wave u_sine_wave ( .">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">
   <meta property="og:site_name" content="Rony Brown Blog">
   <meta property="og:title" content="AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361">
   <meta property="og:description" content="驱动介绍#AD9361通常搭配ZYNQ系列芯片使用，本驱动也是针对ZYNQ芯片对AD9361系列（包含AD9363、AD9364，后文统称AD9361）初始化以及基带数据收发。对于目前网上AD9361的驱动的资料，主要有两种方案：
@@ -66,21 +66,17 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-26T10:52:23+08:00">
-    <meta property="article:modified_time" content="2024-12-26T11:13:57+08:00">
+    <meta property="article:modified_time" content="2024-12-26T10:52:23+08:00">
 <title>AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361 | Rony Brown Blog</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
-<link rel="canonical" href="http://localhost:1313/posts/RZ_AD9361_No-Os_pl_rw/">
+<link rel="canonical" href="http://localhost:1313/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.772cc4cad79414a81b0d8b7edc05ac0e0c801a2a44749b911c8facace537df9a.js" integrity="sha256-dyzEyteUFKgbDYt&#43;3AWsDgyAGipEdJuRHI&#43;srOU335o=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f2573a4dbc7ecb21b03010f4a3cef235a1bf4783e074854f1725373a89708998.js" integrity="sha256-8lc6Tbx&#43;yyGwMBD0o87yNaG/R4PgdIVPFyU3OolwiZg=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
-  
-    
-      
-    
   
 
 <!--
@@ -123,23 +119,21 @@ https://github.com/alex-shpak/hugo-book
 
   <ul>
 <li>
-  <a href="/docs/">Book Example</a>
+<p>
+  <a href="/posts/">设计实例</a></p>
 <ul>
 <li>
-  <a href="/docs/page-one/">首页</a></li>
-<li>
-  <a href="/docs/page-two/">第二页</a></li>
+  <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/"class=active>AD9361 PL读写数据，PS初始化</a></li>
 </ul>
 </li>
 <li>
-  <a href="/posts/">Blog</a>
+<p>
+  <a href="/posts/">常用教程</a></p>
 <ul>
 <li>
-  <a href="/posts/git-note/">git note</a></li>
+  <a href="/posts/note/git/git-note/">git note</a></li>
 <li>
-  <a href="/posts/RZ_AD9361_No-Os_pl_rw/"class=active>AD9361 PL读写数据，PS初始化</a></li>
-<li>
-  <a href="/posts/git-page-note/">Hugo GitHub 配置</a></li>
+  <a href="/posts/note/git/git-page-note/">Hugo GitHub 配置</a></li>
 </ul>
 </li>
 </ul>
@@ -207,7 +201,7 @@ https://github.com/alex-shpak/hugo-book
       
 <article class="markdown book-post">
   <h1>
-    <a href="/posts/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
+    <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
   </h1>
   
   <h5>Dec 26, 2024</h5>
@@ -306,7 +300,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 <p>编译无报错如下图，</p>
 <p>
-  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png#pic_center=50%25x50%25" alt="image-20241225163815952" /></p>
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
 <p>至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
@@ -426,7 +420,13 @@ https://github.com/alex-shpak/hugo-book
   资源获取
   <a class="anchor" href="#%e8%b5%84%e6%ba%90%e8%8e%b7%e5%8f%96">#</a>
 </h1>
-<p>知识付费，有需求请联系vx：RonyzBrown</p>
+<p>知识付费，整套工程售价199元，购买方式：</p>
+<ol>
+<li>vx：RonyzBrown</li>
+<li>咸鱼：
+  <a href="https://www.goofish.com/item?spm=a21ybx.personal.feeds.2.41606ac2BgY9wD&amp;id=761823156119&amp;categoryId=125952002">购买链接</a></li>
+</ol>
+<p>此外，本人可以承接FPGA、嵌入式软硬件设计、射频通信系统设计，欢迎沟通交流。</p>
 </article>
  
       
@@ -436,16 +436,10 @@ https://github.com/alex-shpak/hugo-book
   <div class="flex flex-wrap justify-between">
 
 
-  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/5edf41af5a78b985499d2a3ae97dcc1940002156" title='Last modified by RonyBrown | Dec 26, 2024' target="_blank" rel="noopener">
-      <img src="/svg/calendar.svg" class="book-icon" alt="" />
-      <span>Dec 26, 2024</span>
-    </a>
-  </div>
-
 
 
   <div>
-    <a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/edit/master/exampleSite/content/posts/RZ_AD9361_No-Os_pl_rw.md" target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/edit/master/exampleSite/content/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw.md" target="_blank" rel="noopener">
       <img src="/svg/edit.svg" class="book-icon" alt="" />
       <span>Edit this page</span>
     </a>

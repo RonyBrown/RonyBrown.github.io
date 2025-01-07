@@ -17,14 +17,10 @@
 <link rel="canonical" href="http://localhost:1313/posts/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.772cc4cad79414a81b0d8b7edc05ac0e0c801a2a44749b911c8facace537df9a.js" integrity="sha256-dyzEyteUFKgbDYt&#43;3AWsDgyAGipEdJuRHI&#43;srOU335o=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f2573a4dbc7ecb21b03010f4a3cef235a1bf4783e074854f1725373a89708998.js" integrity="sha256-8lc6Tbx&#43;yyGwMBD0o87yNaG/R4PgdIVPFyU3OolwiZg=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
-  
-    
-      
-    
   
 
 <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml" title="Rony Brown Blog" />
@@ -68,23 +64,21 @@ https://github.com/alex-shpak/hugo-book
 
   <ul>
 <li>
-  <a href="/docs/">Book Example</a>
+<p>
+  <a href="/posts/"class=active>设计实例</a></p>
 <ul>
 <li>
-  <a href="/docs/page-one/">首页</a></li>
-<li>
-  <a href="/docs/page-two/">第二页</a></li>
+  <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">AD9361 PL读写数据，PS初始化</a></li>
 </ul>
 </li>
 <li>
-  <a href="/posts/"class=active>Blog</a>
+<p>
+  <a href="/posts/"class=active>常用教程</a></p>
 <ul>
 <li>
-  <a href="/posts/git-note/">git note</a></li>
+  <a href="/posts/note/git/git-note/">git note</a></li>
 <li>
-  <a href="/posts/RZ_AD9361_No-Os_pl_rw/">AD9361 PL读写数据，PS初始化</a></li>
-<li>
-  <a href="/posts/git-page-note/">Hugo GitHub 配置</a></li>
+  <a href="/posts/note/git/git-page-note/">Hugo GitHub 配置</a></li>
 </ul>
 </li>
 </ul>
@@ -166,7 +160,7 @@ https://github.com/alex-shpak/hugo-book
   
   <article class="markdown book-post">
     <h2>
-      <a href="/posts/git-page-note/">Git Page Note</a>
+      <a href="/posts/note/git/git-page-note/">Git Page Note</a>
     </h2>
     
   <h5>Dec 26, 2024</h5>
@@ -184,14 +178,14 @@ https://github.com/alex-shpak/hugo-book
 hugo new site ronyz-site 注：后续命令未经说明，均在cmd中的ronyz-site根目录下运行
 创建完成后，根目录 ronyz-site 包含以下文件
 .├── archetypes: default.md是生成博文的模版├── assets # 存放被 Hugo Pipes 处理的文件├── content # 存放markdown文件作为博文内容├── data # 存放 Hugo 处理的数据├── layouts # 存放布局文件├── static # 存放静态文件 图片 CSS JS文件├── themes: 存放不同的主题└── config.toml: 博客配置文件支持 JSON YAML TOML 三种格式配置文件 配置主题#当通过上文命令创建我们的站点后，需要进行主题配置，Hugo 社区有了很丰富的主题，可以通过官网 Themes 菜单选择自己喜欢的风格，查看预览效果，选择后可以进入主题项目仓库，一般都会有很详细的安装及配置说明。
-        <a href="/posts/git-page-note/">...</a>
+        <a href="/posts/note/git/git-page-note/">...</a>
       
     </p>
   </article>
   
   <article class="markdown book-post">
     <h2>
-      <a href="/posts/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
+      <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
     </h2>
     
   <h5>Dec 26, 2024</h5>
@@ -232,14 +226,14 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改PL比特文件路径，点击绿色的Run按钮右边的倒三角，点击Run Configurations，按照下图的顺序进入到Bitstream路径选择，Bitstream为PL端的烧录比特文件，路径位于Vivado工程目录下的ad936x.runs/impl_1/system_top.bit，选中之后点击apply，Run之后等待下载完成就可以代码的烧录。
 本驱动提供一个测试案例来观测程序是否正常工作，AD9361是否正常收发数据。在PL产生一个正弦波与余弦波，将正弦波送入AD9361通道0的I路，余弦波送入AD9361通到0的Q路，通过连接到通道0的DAC的I路与Q路信号就可以将信号发射出去。将通道0的ADC的I路与Q路信号、通道0的DAC的的I路与Q路信号连接到ILA逻辑调试器上，下载完成之后，观测抓取到的波形，基带收发部分RTL代码如下：
 module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_dac_data_q0 ); input i_clk; input i_rst_n; input [11:0] i_adc_data_i0; input [11:0] i_adc_data_q0; output [11:0] o_dac_data_i0; output [11:0] o_dac_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] i_adc_data_q0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_i0; (*mark_debug = &#34;true&#34;*) wire [11:0] o_dac_data_q0; wire clk; wire rst_n; assign clk = i_clk; assign rst_n = i_rst_n; // 初始化完成之后，直接对dac_data_i0,dac_data_q0喂数据就可以达到发送的效果 // 直接对adc_data_i0，adc_data_q0读取就可以达到接收的效果 // 产生正弦波测试 sine_wave u_sine_wave ( .
-        <a href="/posts/RZ_AD9361_No-Os_pl_rw/">...</a>
+        <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">...</a>
       
     </p>
   </article>
   
   <article class="markdown book-post">
     <h2>
-      <a href="/posts/git-note/">Git Note</a>
+      <a href="/posts/note/git/git-note/">Git Note</a>
     </h2>
     
   <h5>Jun 4, 2024</h5>
@@ -262,46 +256,6 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 设置完成可以查看是否配置成功：
 &gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890 未开启VPN情况#还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
 git config --global --unset http.proxy git config --global --unset https.proxy 
-    </p>
-  </article>
-  
-  <article class="markdown book-post">
-    <h2>
-      <a href="/posts/test/">Test</a>
-    </h2>
-    
-  <h5>Jun 3, 2024</h5>
-
-
-
-  
-
-  
-
-
-
-
-    <p>mdmdmdmdm
-    </p>
-  </article>
-  
-  <article class="markdown book-post">
-    <h2>
-      <a href="/posts/first/">First</a>
-    </h2>
-    
-  <h5>Jun 3, 2024</h5>
-
-
-
-  
-
-  
-
-
-
-
-    <p>ahah
     </p>
   </article>
   
