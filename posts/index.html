@@ -17,7 +17,7 @@
 <link rel="canonical" href="http://localhost:1313/posts/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f2573a4dbc7ecb21b03010f4a3cef235a1bf4783e074854f1725373a89708998.js" integrity="sha256-8lc6Tbx&#43;yyGwMBD0o87yNaG/R4PgdIVPFyU3OolwiZg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.055d16b924ac355e12612d8f6869a31ffd14c0abb6ce5e8900f65988b0efcd42.js" integrity="sha256-BV0WuSSsNV4SYS2PaGmjH/0UwKu2zl6JAPZZiLDvzUI=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -79,6 +79,8 @@ https://github.com/alex-shpak/hugo-book
   <a href="/posts/note/git/git-note/">git note</a></li>
 <li>
   <a href="/posts/note/git/git-page-note/">Hugo GitHub 配置</a></li>
+<li>
+  <a href="/posts/note/markdown/markdown-note/">Markdown常用说明</a></li>
 </ul>
 </li>
 </ul>
@@ -216,6 +218,7 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
 导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
 将其复制到上级目录Vitis里面，如下图。
+注：嫌修改工程麻烦，可以直接重新快速创建工程，跳转到这查看Vitis创建工程流程
 打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
 浏览选择Vitis工程目录下的xxx.xsa文件，完成Platform创建，
 点击...按钮，
@@ -256,6 +259,29 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 设置完成可以查看是否配置成功：
 &gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890 未开启VPN情况#还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
 git config --global --unset http.proxy git config --global --unset https.proxy 
+    </p>
+  </article>
+  
+  <article class="markdown book-post">
+    <h2>
+      <a href="/posts/note/markdown/markdown-note/">Markdown Note</a>
+    </h2>
+    
+
+
+  
+
+  
+
+
+
+
+    <p>Markdown常用方法#页面#页面内跳转#页面内跳转有两种方法：
+锚点 目录 锚点#&lt;a id=&#34;target_pos&#34;&gt;&lt;/a&gt; &lt;!-- 方法一 --&gt; &lt;a href=&#34;#target_pos&#34;&gt;点击跳转&lt;/a&gt; &lt;!-- 方法二 --&gt; [点击跳转](#target_pos) 示例：
+目的位置
+&mdash;&mdash;&ndash;分割线&mdash;&mdash;&mdash; &mdash;&mdash;&ndash;分割线&mdash;&mdash;&mdash; &mdash;&mdash;&ndash;分割线&mdash;&mdash;&mdash;
+方法一：点击跳转 方法二：点击跳转 注：通过方法二跳转方法，Hugo生成的页面无法跳转
+目录## 目录1 ## 目录2 [点击跳转目录1](#目录1) [点击跳转目录2](#目录2) 通过打锚点的方式也可以实现目录跳转
     </p>
   </article>
   

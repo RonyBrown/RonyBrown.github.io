@@ -20,6 +20,7 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
 导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
 将其复制到上级目录Vitis里面，如下图。
+注：嫌修改工程麻烦，可以直接重新快速创建工程，跳转到这查看Vitis创建工程流程
 打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
 浏览选择Vitis工程目录下的xxx.xsa文件，完成Platform创建，
 点击...按钮，
@@ -52,6 +53,7 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
 导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
 将其复制到上级目录Vitis里面，如下图。
+注：嫌修改工程麻烦，可以直接重新快速创建工程，跳转到这查看Vitis创建工程流程
 打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
 浏览选择Vitis工程目录下的xxx.xsa文件，完成Platform创建，
 点击...按钮，
@@ -73,7 +75,7 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 <link rel="canonical" href="http://localhost:1313/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.f2573a4dbc7ecb21b03010f4a3cef235a1bf4783e074854f1725373a89708998.js" integrity="sha256-8lc6Tbx&#43;yyGwMBD0o87yNaG/R4PgdIVPFyU3OolwiZg=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.055d16b924ac355e12612d8f6869a31ffd14c0abb6ce5e8900f65988b0efcd42.js" integrity="sha256-BV0WuSSsNV4SYS2PaGmjH/0UwKu2zl6JAPZZiLDvzUI=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -134,6 +136,8 @@ https://github.com/alex-shpak/hugo-book
   <a href="/posts/note/git/git-note/">git note</a></li>
 <li>
   <a href="/posts/note/git/git-page-note/">Hugo GitHub 配置</a></li>
+<li>
+  <a href="/posts/note/markdown/markdown-note/">Markdown常用说明</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +189,11 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#驱动介绍">驱动介绍</a></li>
     <li><a href="#驱动移植">驱动移植</a></li>
-    <li><a href="#iq收发操作流程">IQ收发操作流程</a></li>
+    <li><a href="#iq收发操作流程">IQ收发操作流程</a>
+      <ul>
+        <li><a href="#创建vitis工程">创建Vitis工程</a></li>
+      </ul>
+    </li>
     <li><a href="#资源获取">资源获取</a></li>
   </ul>
 </nav>
@@ -277,6 +285,7 @@ https://github.com/alex-shpak/hugo-book
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161203962.png" alt="image-20241225161203962" /></p>
 <p>将其复制到上级目录<code>Vitis</code>里面，如下图。</p>
+<p>注：嫌修改工程麻烦，可以直接重新快速创建工程，<a href="#create_vitis_project">跳转到这</a>查看Vitis创建工程流程</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161248201.png" alt="image-20241225161248201" /></p>
 <p>打开<code>Vitis</code>，Workspace选择上图<code>Vitis</code>工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的<code>xxx.xsa</code>创建的Platform即可。右键<code>ad936x [Platform]</code>，点击<code>Delete</code>，删除之后，点击Vitis菜单栏中的<code>File-New-Platform Project</code>，<code>Platform project name</code>填写：ad936x，点击next进入下一步，如下图。</p>
@@ -298,7 +307,7 @@ https://github.com/alex-shpak/hugo-book
 <div style="text-align: center">
     <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163640324.png" style="width: 50%;">
 </div>
-<p>编译无报错如下图，</p>
+<p><a id="compile_ok">编译无报错如下图，</a></p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
 <p>至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
@@ -416,6 +425,27 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></div><p>其中AD9361输出时钟频率与PS的配置有关，默认状态下在1r1t的时钟频率为30.72MHz，在2r2t的时钟频率为61.44MHz。</p>
 <p>针对PS端对AD9361的配置，可以参考ADI No-Os官方的操作文档，链接为：
   <a href="https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms2-ebz/software/baremetal">AD9361 No-OS Software</a></p>
+<p><a id="create_vitis_project"></a></p>
+<h2 id="创建vitis工程">
+  创建Vitis工程
+  <a class="anchor" href="#%e5%88%9b%e5%bb%bavitis%e5%b7%a5%e7%a8%8b">#</a>
+</h2>
+<p>创建工程的流程非常简单，具体流程为：</p>
+<ol>
+<li>创建一个文件夹，将<code>ad936x.xsa</code>复制到该文件夹下</li>
+<li>打开Vitis，选择workspace路径为该路径</li>
+<li>点击<code>Create Application Project</code>-<code>Create a new platform from hardware</code>，选中文件夹下面的<code>ad936x.xsa</code>文件
+
+  <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-202501081444-platform-chose.png" alt="选择" /></li>
+<li>设置<code>Application project name</code>（工程名称），点击<code>next</code>-<code>next</code>-<code>Empty Application(C)</code>-<code>Finish</code></li>
+<li>复制Vitis目录下<code>ad936x_app/src</code>的所有<code>.c</code>与<code>.h</code>文件，粘贴到创建工程下的src目录下</li>
+</ol>
+<div style="text-align: center">
+    <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-202501081452-src-paste.png" style="width: 50%;">
+</div>
+<ol start="6">
+<li>编译工程，无报错代表工程编译成功，按照<a href="#compile_ok">这里的步骤</a>进行后续测试操作。</li>
+</ol>
 <h1 id="资源获取">
   资源获取
   <a class="anchor" href="#%e8%b5%84%e6%ba%90%e8%8e%b7%e5%8f%96">#</a>
@@ -424,7 +454,7 @@ https://github.com/alex-shpak/hugo-book
 <ol>
 <li>vx：RonyzBrown</li>
 <li>咸鱼：
-  <a href="https://www.goofish.com/item?spm=a21ybx.personal.feeds.2.41606ac2BgY9wD&amp;id=761823156119&amp;categoryId=125952002">购买链接</a></li>
+  <a href="https://www.goofish.com/item?spm=a21ybx.personal.feeds.1.59d16ac2C95pWy&amp;id=874354733960&amp;categoryId=125952002">购买链接</a></li>
 </ol>
 <p>此外，本人可以承接FPGA、嵌入式软硬件设计、射频通信系统设计，欢迎沟通交流。</p>
 </article>
@@ -496,7 +526,11 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#驱动介绍">驱动介绍</a></li>
     <li><a href="#驱动移植">驱动移植</a></li>
-    <li><a href="#iq收发操作流程">IQ收发操作流程</a></li>
+    <li><a href="#iq收发操作流程">IQ收发操作流程</a>
+      <ul>
+        <li><a href="#创建vitis工程">创建Vitis工程</a></li>
+      </ul>
+    </li>
     <li><a href="#资源获取">资源获取</a></li>
   </ul>
 </nav>
