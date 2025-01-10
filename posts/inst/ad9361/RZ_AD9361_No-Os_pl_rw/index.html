@@ -7,7 +7,7 @@
 方案1：通过PS端初始化并控制数据的收发； 方案2：通过纯PL逻辑初始化并控制数据的收发。 但是方案1的现有资料都是通过PS端通过C语言编程来实现基带信号的收发，而对于大部分基带算法对时间刻度要求严格，仅通过C语言实现基带的收发难以满足很多实际需求，方案2将初始化与基带信号数据收发都集中在纯逻辑端，这样极大的方便了基带信号的发射与接收，但是AD9361初始化流程复杂且繁琐，且需要进行一定的校验才能稳定工作，也会占用过多的逻辑资源，目前测试过多个纯PL控制AD9361，大部分工作稳定性较差，且需要修改配置参数时比较麻烦。
 针对现有驱动存在的问题，对ADI提供的驱动进行修改升级，通过PS端对AD9361进行初始化，PL端对ADC与DAC的IQ通路进行读写，经过多个版本迭代升级，本驱动能够稳定工作，测试多次烧录运行都能够正常工作，且在运行时也可以很简单的修改AD9361收发参数，满足大部分通信算法的设计要求，提高开发的效率，帮助开发者专注于基带算法的实现，而不是浪费过多时间在配置驱动上。
 本驱动仅添加最核心的AD9361的驱动代码，在不影响系统的稳定性与复杂度的情况下尽量保留了完整的数据接口与控制接口，在Block Design中添加核心的IP与配置代码，引出了关键的收发信号接口，在PS端完善了数据通路，使PL端能够单独的控制数据的收发。对于本驱动，完成移植过程非常简单，只需要修改DDR、引脚约束这几个参数就能完成完整功能的移植。
-驱动移植#对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，只需要进行简单的修改，驱动移植的大致流程分为：
+驱动移植#对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，提供Vivado 2018.3与Vivado 2021.1两个版本，只需要进行简单的修改（强烈建议使用Vivado 2018.3版本，需要修改的的内容极少），驱动移植的大致流程分为：
 修改Block Design的ZYNQ7 Processing System IP中的DDR与少量IO 修改连接AD9361的引脚约束 修改Vitis中的platform 首先进入到Vivavo工程，打开Block Design，点击ZYNQ7 Processing System，进入到ZYNQ核设置框图，进入DDR Configuration，根据自己的板子选择对应的DDR型号，如下图。
 驱动中需要使用到少部分IO，本设计仅保留AD9361正常工作时使用到的外设IO，本驱动需要使用到：
 SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点亮对应引脚的框框），勾选UART1，调整对应的引脚。其他参数不做调整，如工程需要使用到其他外设，勾选并调整对应的外设引脚即可。如下图。
@@ -16,9 +16,10 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 在工程文件下，如下图，右键system后点击Generate Ouput Products，确认运行。
 运行完成后，然后修改AD9361的对应的引脚约束，特别注意需要修改的是引脚编号与对应的引脚电平，不要同一个Bank使用不同的电平标准。
 特别注意：在确认DDR、SPI0、UART1、引脚约束设置都无误的情况下，点击Generate Bitstream编译整个工程，如下图。
-编译后无报错的情况下，如下图，需要导出硬件描述语言到Vitis里面。
+编译后无报错的情况下，如下图，需要导出硬件描述语言到Vitis或SDK里面。
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
-导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
+对于Vivado 2018.3版本，使用SDK软件，对于本工程，SDK工程可以直接打开，点击Vivado里面的File-Lanuch SDK直接可以进行测试。
+对于Vivado 2021.1版本，使用Vitis软件，注意Vivado与Vitis一定要对应版本使用，不能够跨版本操作， 导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
 将其复制到上级目录Vitis里面，如下图。
 注：嫌修改工程麻烦，可以直接重新快速创建工程，跳转到这查看Vitis创建工程流程
 打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
@@ -40,7 +41,7 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 方案1：通过PS端初始化并控制数据的收发； 方案2：通过纯PL逻辑初始化并控制数据的收发。 但是方案1的现有资料都是通过PS端通过C语言编程来实现基带信号的收发，而对于大部分基带算法对时间刻度要求严格，仅通过C语言实现基带的收发难以满足很多实际需求，方案2将初始化与基带信号数据收发都集中在纯逻辑端，这样极大的方便了基带信号的发射与接收，但是AD9361初始化流程复杂且繁琐，且需要进行一定的校验才能稳定工作，也会占用过多的逻辑资源，目前测试过多个纯PL控制AD9361，大部分工作稳定性较差，且需要修改配置参数时比较麻烦。
 针对现有驱动存在的问题，对ADI提供的驱动进行修改升级，通过PS端对AD9361进行初始化，PL端对ADC与DAC的IQ通路进行读写，经过多个版本迭代升级，本驱动能够稳定工作，测试多次烧录运行都能够正常工作，且在运行时也可以很简单的修改AD9361收发参数，满足大部分通信算法的设计要求，提高开发的效率，帮助开发者专注于基带算法的实现，而不是浪费过多时间在配置驱动上。
 本驱动仅添加最核心的AD9361的驱动代码，在不影响系统的稳定性与复杂度的情况下尽量保留了完整的数据接口与控制接口，在Block Design中添加核心的IP与配置代码，引出了关键的收发信号接口，在PS端完善了数据通路，使PL端能够单独的控制数据的收发。对于本驱动，完成移植过程非常简单，只需要修改DDR、引脚约束这几个参数就能完成完整功能的移植。
-驱动移植#对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，只需要进行简单的修改，驱动移植的大致流程分为：
+驱动移植#对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，提供Vivado 2018.3与Vivado 2021.1两个版本，只需要进行简单的修改（强烈建议使用Vivado 2018.3版本，需要修改的的内容极少），驱动移植的大致流程分为：
 修改Block Design的ZYNQ7 Processing System IP中的DDR与少量IO 修改连接AD9361的引脚约束 修改Vitis中的platform 首先进入到Vivavo工程，打开Block Design，点击ZYNQ7 Processing System，进入到ZYNQ核设置框图，进入DDR Configuration，根据自己的板子选择对应的DDR型号，如下图。
 驱动中需要使用到少部分IO，本设计仅保留AD9361正常工作时使用到的外设IO，本驱动需要使用到：
 SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点亮对应引脚的框框），勾选UART1，调整对应的引脚。其他参数不做调整，如工程需要使用到其他外设，勾选并调整对应的外设引脚即可。如下图。
@@ -49,9 +50,10 @@ SPI UART 进入到Peripheral I/O Pins，勾选SPI0，调整对应的引脚（点
 在工程文件下，如下图，右键system后点击Generate Ouput Products，确认运行。
 运行完成后，然后修改AD9361的对应的引脚约束，特别注意需要修改的是引脚编号与对应的引脚电平，不要同一个Bank使用不同的电平标准。
 特别注意：在确认DDR、SPI0、UART1、引脚约束设置都无误的情况下，点击Generate Bitstream编译整个工程，如下图。
-编译后无报错的情况下，如下图，需要导出硬件描述语言到Vitis里面。
+编译后无报错的情况下，如下图，需要导出硬件描述语言到Vitis或SDK里面。
 点击Vivado菜单栏处的File-Export-Export Hardware，如下图。
-导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
+对于Vivado 2018.3版本，使用SDK软件，对于本工程，SDK工程可以直接打开，点击Vivado里面的File-Lanuch SDK直接可以进行测试。
+对于Vivado 2021.1版本，使用Vitis软件，注意Vivado与Vitis一定要对应版本使用，不能够跨版本操作， 导出后，在Vivado工程目录下面会生成xxx.xsa文件，如下图。
 将其复制到上级目录Vitis里面，如下图。
 注：嫌修改工程麻烦，可以直接重新快速创建工程，跳转到这查看Vitis创建工程流程
 打开Vitis，Workspace选择上图Vitis工程路径，由于Vitis的Platform使用的是绝对路径，所以当工程路径发生变化时，经常出现Platform无效的报错，这个时候最简单的方法是把原来的Platform删掉，重新添加由上文生成的xxx.xsa创建的Platform即可。右键ad936x [Platform]，点击Delete，删除之后，点击Vitis菜单栏中的File-New-Platform Project，Platform project name填写：ad936x，点击next进入下一步，如下图。
@@ -75,7 +77,7 @@ module tx_rx ( i_clk, i_rst_n, i_adc_data_i0, i_adc_data_q0, o_dac_data_i0, o_da
 <link rel="canonical" href="http://localhost:1313/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/">
 <link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.055d16b924ac355e12612d8f6869a31ffd14c0abb6ce5e8900f65988b0efcd42.js" integrity="sha256-BV0WuSSsNV4SYS2PaGmjH/0UwKu2zl6JAPZZiLDvzUI=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.cd2bc116b986d8c3ac3d882a147685abf35dd72e87cc52f0952ab88cc7af5a94.js" integrity="sha256-zSvBFrmG2MOsPYgqFHaFq/Nd1y6HzFLwlSq4jMevWpQ=" crossorigin="anonymous"></script>
 
   <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 
@@ -240,7 +242,7 @@ https://github.com/alex-shpak/hugo-book
   驱动移植
   <a class="anchor" href="#%e9%a9%b1%e5%8a%a8%e7%a7%bb%e6%a4%8d">#</a>
 </h1>
-<p>对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，只需要进行简单的修改，驱动移植的大致流程分为：</p>
+<p>对于ZYNQ7020/ZYNQ7010系列芯片，使用芯片的PS端实现对AD9361初始化，PL端实现基带算法。对于本驱动，提供<code>Vivado 2018.3</code>与<code>Vivado 2021.1</code>两个版本，只需要进行简单的修改（强烈建议使用<code>Vivado 2018.3</code>版本，需要修改的的内容极少），驱动移植的大致流程分为：</p>
 <ol>
 <li>修改Block Design的ZYNQ7 Processing System IP中的DDR与少量IO</li>
 <li>修改连接AD9361的引脚约束</li>
@@ -274,14 +276,15 @@ https://github.com/alex-shpak/hugo-book
 <div style="text-align: center;">
     <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160529882.png" style="width: 30%; text-align: center;">
 </div>
-<p>编译后无报错的情况下，如下图，需要导出硬件描述语言到<code>Vitis</code>里面。</p>
+<p>编译后无报错的情况下，如下图，需要导出硬件描述语言到<code>Vitis</code>或<code>SDK</code>里面。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241223210719938.png" alt="image-20241223210719938" /></p>
 <p>点击Vivado菜单栏处的<code>File-Export-Export Hardware</code>，如下图。</p>
 <div style="text-align: center">
     <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225160925418.png">
 </div>
-<p>导出后，在<code>Vivado</code>工程目录下面会生成<code>xxx.xsa</code>文件，如下图。</p>
+<p>对于<code>Vivado 2018.3</code>版本，使用<code>SDK</code>软件，对于本工程，<code>SDK</code>工程可以直接打开，点击Vivado里面的<code>File</code>-<code>Lanuch SDK</code>直接可以<a href="#bit_download">进行测试。</a></p>
+<p>对于<code>Vivado 2021.1</code>版本，使用<code>Vitis</code>软件，注意<code>Vivado</code>与<code>Vitis</code>一定要对应版本使用，不能够跨版本操作， 导出后，在<code>Vivado</code>工程目录下面会生成<code>xxx.xsa</code>文件，如下图。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225161203962.png" alt="image-20241225161203962" /></p>
 <p>将其复制到上级目录<code>Vitis</code>里面，如下图。</p>
@@ -310,7 +313,8 @@ https://github.com/alex-shpak/hugo-book
 <p><a id="compile_ok">编译无报错如下图，</a></p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225163815952.png" alt="image-20241225163815952" /></p>
-<p>至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
+<p><a id="bit_download"></a>
+至此，PS端烧录文件与PL端烧录文件都已生成，下载代码到芯片里面就可以实现对AD9361的操作，但是由于工程目录可能发生变化，所以需要修改<code>PL</code>比特文件路径，点击绿色的<code>Run</code>按钮右边的倒三角，点击<code>Run Configurations</code>，按照下图的顺序进入到<code>Bitstream</code>路径选择，<code>Bitstream</code>为PL端的烧录比特文件，路径位于Vivado工程目录下的<code>ad936x.runs/impl_1/system_top.bit</code>，选中之后点击<code>apply</code>，<code>Run</code>之后等待下载完成就可以代码的烧录。</p>
 <p>
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-20241225164351343.png" alt="image-20241225164351343" /></p>
 <p>本驱动提供一个测试案例来观测程序是否正常工作，AD9361是否正常收发数据。在PL产生一个正弦波与余弦波，将正弦波送入AD9361通道0的<code>I</code>路，余弦波送入AD9361通到0的<code>Q</code>路，通过连接到通道0的DAC的<code>I</code>路与<code>Q</code>路信号就可以将信号发射出去。将通道0的ADC的<code>I</code>路与<code>Q</code>路信号、通道0的DAC的的<code>I</code>路与<code>Q</code>路信号连接到<code>ILA</code>逻辑调试器上，下载完成之后，观测抓取到的波形，基带收发部分RTL代码如下：</p>
@@ -432,13 +436,13 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>创建工程的流程非常简单，具体流程为：</p>
 <ol>
-<li>创建一个文件夹，将<code>ad936x.xsa</code>复制到该文件夹下</li>
+<li>将<code>ad936x.xsa</code>复制到<code>ad936x.sdk</code>文件夹下</li>
 <li>打开Vitis，选择workspace路径为该路径</li>
 <li>点击<code>Create Application Project</code>-<code>Create a new platform from hardware</code>，选中文件夹下面的<code>ad936x.xsa</code>文件
 
   <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-202501081444-platform-chose.png" alt="选择" /></li>
 <li>设置<code>Application project name</code>（工程名称），点击<code>next</code>-<code>next</code>-<code>Empty Application(C)</code>-<code>Finish</code></li>
-<li>复制Vitis目录下<code>ad936x_app/src</code>的所有<code>.c</code>与<code>.h</code>文件，粘贴到创建工程下的src目录下</li>
+<li>复制工程目录下<code>src</code>的所有<code>.c</code>与<code>.h</code>文件，粘贴到创建Vitis工程下的src目录下</li>
 </ol>
 <div style="text-align: center">
     <img src="/pics/RZ_AD9361_No-Os_pl_rw/image-202501081452-src-paste.png" style="width: 50%;">
