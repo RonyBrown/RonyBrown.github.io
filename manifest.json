@@ -1,6 +1,6 @@
 {
-  "name": "Rony Brown Blog",
-  "short_name": "Rony Brown Blog",
+  "name": "Blog",
+  "short_name": "Blog",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
