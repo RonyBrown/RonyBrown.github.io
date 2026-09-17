@@ -9,11 +9,12 @@ const pages = [
     "/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/",
     "/posts/note/git/git-note/",
     "/",
+    "/posts/note/edit/test/",
     "/posts/",
     "/tags/",
     "/book.min.d39bd0ea715eb7778491c8baa34c2b7e0f1ba062ced201b1c5f9fbe5e85ef74f.css",
-  "/en.search-data.min.062c39e42875803f73039f8a013aea6af2b3d9d74cc9b2fad7a8f8a5ef82ae3d.json",
-  "/en.search.min.3eb0d5730242023de21014d8c24dcdb8d2925c69d454c38921f6161feb7d0ebf.js",
+  "/en.search-data.min.787f6706e031720e76b744e99fa6c9028d9dc2f360a5d253b894e74aa614416f.json",
+  "/en.search.min.c1cbcb150309e1107a3754b3b49c48252df9dfec25907c6a877f909b2b0d3a16.js",
   
 ];
 

@@ -1,425 +1,51 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <!--
-Made with Book Theme
-https://github.com/alex-shpak/hugo-book
--->
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
+<!doctype html><html lang=en dir=ltr data-theme=light><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
 开启VPN情况# 一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。
 解决办法：
 1.查看本机系统端口号
-设置-&gt;网络和Internet-&gt;代理
+设置->网络和Internet->代理
 2.设置git端口号和上面的端口号保持一致
 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890设置完成可以查看是否配置成功：
-&gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
-git config --global --unset http.proxy git config --global --unset https.proxy">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/note/git/git-note/">
-	<meta property="og:site_name" content="Blog">
-	<meta property="og:title" content="Git Note">
-	<meta property="og:description" content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
+> git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
+git config --global --unset http.proxy git config --global --unset https.proxySSH授权# 生成密钥
+ssh-keygen -t ed25519 -C “ronybrown741@gmail.com” -f $env:USERPROFILE.ssh\id_ed25519_personal
+公钥加到 GitHub
+"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#2e3440"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://0.0.0.0:1313/posts/note/git/git-note/"><meta property="og:site_name" content="Blog"><meta property="og:title" content="Git Note"><meta property="og:description" content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
 开启VPN情况# 一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。
 解决办法：
 1.查看本机系统端口号
-设置-&gt;网络和Internet-&gt;代理
+设置->网络和Internet->代理
 2.设置git端口号和上面的端口号保持一致
 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890设置完成可以查看是否配置成功：
-&gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
-git config --global --unset http.proxy git config --global --unset https.proxy">
-	<meta property="og:locale" content="en">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2024-06-04T20:39:20+08:00">
-		<meta property="article:modified_time" content="2026-08-20T17:08:57+08:00">
-
-
-	<meta itemprop="name" content="Git Note">
-	<meta itemprop="description" content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
+> git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
+git config --global --unset http.proxy git config --global --unset https.proxySSH授权# 生成密钥
+ssh-keygen -t ed25519 -C “ronybrown741@gmail.com” -f $env:USERPROFILE.ssh\id_ed25519_personal
+公钥加到 GitHub"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-06-04T20:39:20+08:00"><meta property="article:modified_time" content="2026-08-20T17:08:57+08:00"><meta itemprop=name content="Git Note"><meta itemprop=description content="访问问题# 连接不上# fatal: unable to access ‘https://github.com/xxx/.git/’: Failed to connect to github.com port 443 after 21090 ms: Couldn’t connect to server
 开启VPN情况# 一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。
 解决办法：
 1.查看本机系统端口号
-设置-&gt;网络和Internet-&gt;代理
+设置->网络和Internet->代理
 2.设置git端口号和上面的端口号保持一致
 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890设置完成可以查看是否配置成功：
-&gt; git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
-git config --global --unset http.proxy git config --global --unset https.proxy">
-	<meta itemprop="datePublished" content="2024-06-04T20:39:20+08:00">
-	<meta itemprop="dateModified" content="2026-08-20T17:08:57+08:00">
-	<meta itemprop="wordCount" content="57">
-
-<title>Git Note • Blog</title>
-<link rel="icon" href="/favicon.png" >
-<link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="http://localhost:1313/posts/note/git/git-note/">
-<link rel="stylesheet" href="/book.min.d39bd0ea715eb7778491c8baa34c2b7e0f1ba062ced201b1c5f9fbe5e85ef74f.css" integrity="sha256-05vQ6nFet3eEkci6o0wrfg8boGLO0gGxxfn75ehe908=" crossorigin="anonymous">
-
-
-
-  <script defer type="module" src="/en.search.min.3eb0d5730242023de21014d8c24dcdb8d2925c69d454c38921f6161feb7d0ebf.js" integrity="sha256-PrDVcwJCAj3iEBTYwk3NuNKSXGnUVMOJIfYWH&#43;t9Dr8=" crossorigin="anonymous"></script>
-
-  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
-
-  
-</head>
-<body dir="ltr" class="book-kind-page book-type-posts">
-  <input type="checkbox" class="hidden toggle" id="menu-control" />
-  <input type="checkbox" class="hidden toggle" id="toc-control" />
-  <main class="container flex">
-    
-<aside class="book-menu">
-  <div class="book-menu-content">
-    
-  <nav>
-<h2 class="book-brand">
-  <a class="flex align-center" href="/"><img src="/logo/ronybrown-logo.png" alt="Logo" /><span>Blog</span>
-  </a>
-</h2>
-
-
-<div class="book-search hidden">
-  <input id="book-search-input" type="text" 
-    placeholder="Search"
-    aria-label="Search"
-    maxlength="64" />
-  <div class="book-search-spinner hidden"></div>
-  <ul id="book-search-results"></ul>
-</div>
-<script>document.querySelector(".book-search").classList.remove("hidden")</script>
-
-
-
-
-
-
-
-
-
-
-  
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-ccd1564536400559eca8b8c7fb1f53b5" class="toggle" checked />
-    <label for="section-ccd1564536400559eca8b8c7fb1f53b5" class="flex">
-      <a href="/posts/note/" class="">
-        Note</a>
-      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/posts/note/edit/RZ_notepadpp_note/" class="">
-      notepad&#43;&#43;使用方法</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/posts/note/markdown/markdown-note/" class="">
-      Markdown 笔记</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/posts/note/git/git-page-note/" class="">
-      Git Page Note</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/posts/note/git/git-note/" class="active">
-      Git Note</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-10bb642bb191966910a3f85e0d69936e" class="toggle"  />
-    <label for="section-10bb642bb191966910a3f85e0d69936e" class="flex">
-      <a href="/posts/inst/" class="">
-        Inst</a>
-      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/" class="">
-      AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
-
-
-
-
-
-
-
-
-
-
-<ul><li><a href="/posts/" title="Blog">Blog</a></li></ul>
-
-
-
-
-</nav>
-
-
-
-
-  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-
-
-
-  </div>
-</aside>
- 
-
-    <div class="book-page">
-      <header class="book-header hidden">
-        
-  <div class="flex align-center justify-between">
-  <label for="menu-control">
-    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
-  </label>
-
-  <h3>Git Note</h3>
-
-  <label for="toc-control">
-    
-    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
-    
-  </label>
-</div>
-
-
-  
-  <aside class="hidden">
-    
-  
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#访问问题">访问问题</a>
-      <ul>
-        <li><a href="#连接不上">连接不上</a>
-          <ul>
-            <li><a href="#开启vpn情况">开启VPN情况</a></li>
-            <li><a href="#未开启vpn情况">未开启VPN情况</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-
-
-  </aside>
-  
- 
-      </header>
-
-      
-      
-<article class="markdown book-post">
-  <h1>
-    Git Note
-  </h1>
-  
-  <div class="flex align-center text-small book-post-date">
-    <img src="/icons/calendar.svg" class="book-icon" alt="Calendar" />
-    <span>June 4, 2024</span>
-  </div>
-
-
-
-  
-
-
-  <div class="book-post-content markdown-inner"><h1 id="访问问题">访问问题<a class="anchor" href="#%e8%ae%bf%e9%97%ae%e9%97%ae%e9%a2%98">#</a></h1>
-<h2 id="连接不上">连接不上<a class="anchor" href="#%e8%bf%9e%e6%8e%a5%e4%b8%8d%e4%b8%8a">#</a></h2>
-<p>fatal: unable to access &lsquo;<a href="https://github.com/xxx/.git/">https://github.com/xxx/.git/</a>&rsquo;: Failed to connect to github.com port 443 after 21090 ms: Couldn&rsquo;t connect to server</p>
-<h3 id="开启vpn情况">开启VPN情况<a class="anchor" href="#%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5">#</a></h3>
-<p>一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。</p>
-<p><strong>解决办法：</strong></p>
-<p>1.查看本机系统端口号</p>
-<p>设置-&gt;网络和Internet-&gt;代理</p>
-<p><img src="/pics/git-note/image-20240603100901242.png" alt="image-20240603100901242" /></p>
-<p>2.设置git端口号和上面的端口号保持一致</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global http.proxy 127.0.0.1:7890
-</span></span><span style="display:flex;"><span>git config --global https.proxy 127.0.0.1:7890</span></span></code></pre></div><p>设置完成可以查看是否配置成功：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git config --global -l
-</span></span><span style="display:flex;"><span>user.email<span style="color:#0550ae">=</span>xxx@xx.com
-</span></span><span style="display:flex;"><span>user.name<span style="color:#0550ae">=</span>xxx
-</span></span><span style="display:flex;"><span>http.proxy<span style="color:#0550ae">=</span>127.0.0.1:7890
-</span></span><span style="display:flex;"><span>https.proxy<span style="color:#0550ae">=</span>127.0.0.1:7890</span></span></code></pre></div><h3 id="未开启vpn情况">未开启VPN情况<a class="anchor" href="#%e6%9c%aa%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5">#</a></h3>
-<p>还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global --unset http.proxy
-</span></span><span style="display:flex;"><span>git config --global --unset https.proxy</span></span></code></pre></div></div>
-</article>
- 
-      
-
-      <footer class="book-footer">
-        
-  <div class="flex flex-wrap justify-between">
-  <div>
-  
-    <a href="/posts/note/git/git-page-note/" class="flex align-center">
-      <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-      <span>Git Page Note</span>
-    </a>
-  
-  </div>
-  <div>
-  
-  </div>
-</div>
- 
-        
-  
- 
-        
-        
-  
-  <div class="book-copyright flex justify-center">
-    <small>Blog - Rony Brown&rsquo;s Blog</small>
-
-  </div>
-  
- 
-        
-  
-    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
-  
-
-      </footer>
-
-      <label for="menu-control" class="hidden book-menu-overlay"></label>
-    </div>
-
-    
-  
-  <aside class="book-toc">
-    <div class="book-toc-content">
-      
-  
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#访问问题">访问问题</a>
-      <ul>
-        <li><a href="#连接不上">连接不上</a>
-          <ul>
-            <li><a href="#开启vpn情况">开启VPN情况</a></li>
-            <li><a href="#未开启vpn情况">未开启VPN情况</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-
-
-    </div>
-  </aside>
-  
- 
-  </main>
-
-  
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> git config --global -l user.email=xxx@xx.com user.name=xxx http.proxy=127.0.0.1:7890 https.proxy=127.0.0.1:7890未开启VPN情况# 还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：
+git config --global --unset http.proxy git config --global --unset https.proxySSH授权# 生成密钥
+ssh-keygen -t ed25519 -C “ronybrown741@gmail.com” -f $env:USERPROFILE.ssh\id_ed25519_personal
+公钥加到 GitHub"><meta itemprop=datePublished content="2024-06-04T20:39:20+08:00"><meta itemprop=dateModified content="2026-08-20T17:08:57+08:00"><meta itemprop=wordCount content="94"><title>Git Note • Blog</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=http://0.0.0.0:1313/posts/note/git/git-note/><link rel=stylesheet href=/book.min.d39bd0ea715eb7778491c8baa34c2b7e0f1ba062ced201b1c5f9fbe5e85ef74f.css integrity="sha256-05vQ6nFet3eEkci6o0wrfg8boGLO0gGxxfn75ehe908=" crossorigin=anonymous><script defer type=module src=/en.search.min.c1cbcb150309e1107a3754b3b49c48252df9dfec25907c6a877f909b2b0d3a16.js integrity="sha256-wcvLFQMJ4RB6N1SztJxIJS353+wlkHxqh3+QmysNOhY=" crossorigin=anonymous></script><script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr class="book-kind-page book-type-posts"><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>Blog</span></a></h2><div class="book-search hidden"><input id=book-search-input type=text placeholder=Search aria-label=Search maxlength=64><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-ccd1564536400559eca8b8c7fb1f53b5 class=toggle checked>
+<label for=section-ccd1564536400559eca8b8c7fb1f53b5 class=flex><a href=/posts/note/>Note</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/posts/note/edit/RZ_notepadpp_note/>notepad++使用方法</a></li><li><a href=/posts/note/markdown/markdown-note/>Markdown 笔记</a></li><li><a href=/posts/note/git/git-page-note/>Git Page Note</a></li><li><a href=/posts/note/git/git-note/ class=active>Git Note</a></li></ul></li><li><input type=checkbox id=section-10bb642bb191966910a3f85e0d69936e class=toggle>
+<label for=section-10bb642bb191966910a3f85e0d69936e class=flex><a href=/posts/inst/>Inst</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/posts/inst/ad9361/RZ_AD9361_No-Os_pl_rw/>AD9361驱动：ZYNQ PL端纯逻辑控制信号收发，PS端初始化AD9361</a></li></ul></li></ul><ul><li><a href=/posts/ title=Blog>Blog</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class="book-header hidden"><div class="flex align-center justify-between"><label for=menu-control><img src=/icons/menu.svg class=book-icon alt=Menu></label><h3>Git Note</h3><label for=toc-control><img src=/icons/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class=hidden><nav id=TableOfContents><ul><li><a href=#访问问题>访问问题</a><ul><li><a href=#连接不上>连接不上</a><ul><li><a href=#开启vpn情况>开启VPN情况</a></li><li><a href=#未开启vpn情况>未开启VPN情况</a></li></ul></li><li><a href=#ssh授权>SSH授权</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h1>Git Note</h1><div class="flex align-center text-small book-post-date"><img src=/icons/calendar.svg class=book-icon alt=Calendar>
+<span>June 4, 2024</span></div><div class="book-post-content markdown-inner"><h1 id=访问问题>访问问题<a class=anchor href=#%e8%ae%bf%e9%97%ae%e9%97%ae%e9%a2%98>#</a></h1><h2 id=连接不上>连接不上<a class=anchor href=#%e8%bf%9e%e6%8e%a5%e4%b8%8d%e4%b8%8a>#</a></h2><p>fatal: unable to access &lsquo;<a href=https://github.com/xxx/.git/>https://github.com/xxx/.git/</a>&rsquo;: Failed to connect to github.com port 443 after 21090 ms: Couldn&rsquo;t connect to server</p><h3 id=开启vpn情况>开启VPN情况<a class=anchor href=#%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5>#</a></h3><p>一般出现这种问题都是开过VPN导致的本机系统端口号和git的端口号不一致导致的。</p><p><strong>解决办法：</strong></p><p>1.查看本机系统端口号</p><p>设置->网络和Internet->代理</p><p><img src=/pics/git-note/image-20240603100901242.png alt=image-20240603100901242></p><p>2.设置git端口号和上面的端口号保持一致</p><div class=highlight><pre tabindex=0 style=background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>git config --global http.proxy 127.0.0.1:7890
+</span></span><span style=display:flex><span>git config --global https.proxy 127.0.0.1:7890</span></span></code></pre></div><p>设置完成可以查看是否配置成功：</p><div class=highlight><pre tabindex=0 style=background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>&gt; git config --global -l
+</span></span><span style=display:flex><span>user.email<span style=color:#0550ae>=</span>xxx@xx.com
+</span></span><span style=display:flex><span>user.name<span style=color:#0550ae>=</span>xxx
+</span></span><span style=display:flex><span>http.proxy<span style=color:#0550ae>=</span>127.0.0.1:7890
+</span></span><span style=display:flex><span>https.proxy<span style=color:#0550ae>=</span>127.0.0.1:7890</span></span></code></pre></div><h3 id=未开启vpn情况>未开启VPN情况<a class=anchor href=#%e6%9c%aa%e5%bc%80%e5%90%afvpn%e6%83%85%e5%86%b5>#</a></h3><p>还是一样的原因，两边端口不一致导致的，那么直接去掉git代理即可：</p><div class=highlight><pre tabindex=0 style=background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>git config --global --unset http.proxy
+</span></span><span style=display:flex><span>git config --global --unset https.proxy</span></span></code></pre></div><h2 id=ssh授权>SSH授权<a class=anchor href=#ssh%e6%8e%88%e6%9d%83>#</a></h2><ol><li><p>生成密钥</p><blockquote class=book-hint><p>ssh-keygen -t ed25519 -C &ldquo;<a href=mailto:ronybrown741@gmail.com>ronybrown741@gmail.com</a>&rdquo; -f $env:USERPROFILE.ssh\id_ed25519_personal</p></blockquote></li><li><p>公钥加到 GitHub</p><blockquote class=book-hint><p>cat $env:USERPROFILE.ssh\id_ed25519_personal.pub</p></blockquote></li><li><p>配 ~/.ssh/config 别名</p><p>新建或编辑 C:\Users\你的用户名.ssh\config</p><div class=highlight><pre tabindex=0 style=background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Host github.com-personal
+</span></span><span style=display:flex><span> HostName github.com
+</span></span><span style=display:flex><span> User git
+</span></span><span style=display:flex><span> IdentityFile ~/.ssh/id_ed25519_personal
+</span></span><span style=display:flex><span> IdentitiesOnly yes</span></span></code></pre></div></li><li><p>测试
+ssh -T <a href=mailto:git@github.com-personal>git@github.com-personal</a></p></li><li><p>改远程</p><blockquote class=book-hint><p>git remote set-url origin <a href=mailto:git@github.com-personal>git@github.com-personal</a>:{账户/仓库名}.git</p></blockquote></li></ol></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a href=/posts/note/git/git-page-note/ class="flex align-center"><img src=/icons/backward.svg class=book-icon alt=Backward>
+<span>Git Page Note</span></a></div><div><a href=/posts/note/edit/test/ class="flex align-center"><span>Test</span>
+<img src=/icons/forward.svg class=book-icon alt=Forward></a></div></div><div class="book-copyright flex justify-center"><small>Blog - Rony Brown&rsquo;s Blog</small></div><script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#访问问题>访问问题</a><ul><li><a href=#连接不上>连接不上</a><ul><li><a href=#开启vpn情况>开启VPN情况</a></li><li><a href=#未开启vpn情况>未开启VPN情况</a></li></ul></li><li><a href=#ssh授权>SSH授权</a></li></ul></li></ul></nav></div></aside></main></body></html>
